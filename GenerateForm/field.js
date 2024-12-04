@@ -1,9 +1,29 @@
-export function renderField(obj) {
+export function renderField(labelOnTop, obj) {
+    let field = renderLabel(obj.label, labelOnTop);
     switch(obj.type){
-        case "text" : return renderText(obj)
-        case "number" : return renderNumber(obj)
-        case "email" : return renderEmail(obj)
-        default : return renderDefault(obj)
+        case "text" : field.appendChild(renderText(obj))
+            break;
+        case "number" : field.appendChild(renderNumber(obj))
+            break;
+        case "email" : field.appendChild(renderEmail(obj))
+            break;
+        default : field.appendChild(renderDefault(obj))
+    }
+    return field;
+}
+
+export function renderForm(obj){
+    let app = document.getElementById("app")
+
+    if(obj.showState){
+        let label = document.createElement("label");
+        label.id = "globalstate"
+    }
+
+    let fields = obj.fields
+    for(let i = 0; i < fields.length; i++){
+        let field = renderField(obj.labelOnTop, fields[i])
+        app.appendChild(field);
     }
 }
 
@@ -33,8 +53,23 @@ function renderDefault(obj){
     return field;
 }
 
+function renderLabel(lbText, lbOnTop){
 
+    let field = document.createElement("div");
+    let label = document.createElement("label");
+    label.innerHTML = lbText;
+    field.style.display = "flex";
+    if(lbOnTop) {
+        field.style.flexDirection = "column";
+    }
+    else{
+        field.style.flexDirection = "row";
+    }
+    field.appendChild(label);
+    return field;
+}
 
-function renderLabel(){
-
+export function updateState(state){
+    let field = document.getElementById("globalstate")
+    field.innerHTML = state
 }

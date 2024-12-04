@@ -1,18 +1,37 @@
-import { renderField } from "./field.js"
+import { renderForm, updateState } from "./field.js"
 
 let app = document.getElementById("app")
 
-let globalStage = {};
+let globalState = {};
 
-
-let field = renderField(
+let field = renderForm(
     {
-    state: globalStage,
-    id: "nev",
-    type: 'email'
+        controls : {
+            onSave : () => {
+                
+            },
+            onClear : () => {
+                for(let i = 0; i < this.fields.length; i++){
+                    this.fields[i].value = "";
+                }
+                updateState(globalState)
+            }
+        },
+        showState: true,
+        labelOnTop : true,
+        fields : [
+            {
+                id: "nev",
+                type: 'text',
+                label : 'Név:',
+            },
+            {
+                id: "email",
+                type: 'email',
+                label : 'Email:',
+            }
+        ]
     }
 )
 
-app.appendChild(field);
-
-console.log(globalStage);
+console.log(globalState);
