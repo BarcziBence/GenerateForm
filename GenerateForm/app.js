@@ -6,17 +6,7 @@ let globalState = {};
 
 let field = renderForm(
     {
-        controls : {
-            onSave : () => {
-                
-            },
-            onClear : () => {
-                for(let i = 0; i < this.fields.length; i++){
-                    this.fields[i].value = "";
-                }
-                updateState(globalState)
-            }
-        },
+        state : globalState,
         showState: true,
         labelOnTop : true,
         fields : [
@@ -24,6 +14,11 @@ let field = renderForm(
                 id: "nev",
                 type: 'text',
                 label : 'Név:',
+            },
+            {
+                id: "aaaaaaaaaaaaaaaa",
+                type: 'number',
+                label : 'AAA:',
             },
             {
                 id: "email",
